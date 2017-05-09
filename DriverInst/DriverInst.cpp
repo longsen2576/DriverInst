@@ -9,7 +9,7 @@
 
 
 
-BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath, const char* lpszAltitude)
+BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath)
 {
 	char szTempStr[MAX_PATH];
 	HKEY hKey;
@@ -65,54 +65,7 @@ BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath, const
 	}
 	CloseServiceHandle(hService);
 	CloseServiceHandle(hServiceMgr);
-
-	//-------------------------------------------------------------------------------------------------------    
-	// SYSTEM\\CurrentControlSet\\Services\\DriverName\\Instances子健下的键值项    
-	//-------------------------------------------------------------------------------------------------------    
-	strcpy(szTempStr, "SYSTEM\\CurrentControlSet\\Services\\");
-	strcat(szTempStr, lpszDriverName);
-	strcat(szTempStr, "\\Instances");
-	if (RegCreateKeyExA(HKEY_LOCAL_MACHINE, szTempStr, 0, "", TRUE, KEY_ALL_ACCESS, NULL, &hKey, (LPDWORD)&dwData) != ERROR_SUCCESS)
-	{
-		return FALSE;
-	}
-	// 注册表驱动程序的DefaultInstance 值    
-	strcpy(szTempStr, lpszDriverName);
-	strcat(szTempStr, " Instance");
-	if (RegSetValueExA(hKey, "DefaultInstance", 0, REG_SZ, (CONST BYTE*)szTempStr, (DWORD)strlen(szTempStr)) != ERROR_SUCCESS)
-	{
-		return FALSE;
-	}
-	RegFlushKey(hKey);
-	RegCloseKey(hKey);
-
-	//-------------------------------------------------------------------------------------------------------    
-	// SYSTEM\\CurrentControlSet\\Services\\DriverName\\Instances\\DriverName Instance子健下的键值项    
-	//-------------------------------------------------------------------------------------------------------    
-	strcpy(szTempStr, "SYSTEM\\CurrentControlSet\\Services\\");
-	strcat(szTempStr, lpszDriverName);
-	strcat(szTempStr, "\\Instances\\");
-	strcat(szTempStr, lpszDriverName);
-	strcat(szTempStr, " Instance");
-	if (RegCreateKeyExA(HKEY_LOCAL_MACHINE, szTempStr, 0, "", TRUE, KEY_ALL_ACCESS, NULL, &hKey, (LPDWORD)&dwData) != ERROR_SUCCESS)
-	{
-		return FALSE;
-	}
-	// 注册表驱动程序的Altitude 值    
-	strcpy(szTempStr, lpszAltitude);
-	if (RegSetValueExA(hKey, "Altitude", 0, REG_SZ, (CONST BYTE*)szTempStr, (DWORD)strlen(szTempStr)) != ERROR_SUCCESS)
-	{
-		return FALSE;
-	}
-	// 注册表驱动程序的Flags 值    
-	dwData = 0x0;
-	if (RegSetValueExA(hKey, "Flags", 0, REG_DWORD, (CONST BYTE*)&dwData, sizeof(DWORD)) != ERROR_SUCCESS)
-	{
-		return FALSE;
-	}
-	RegFlushKey(hKey);
-	RegCloseKey(hKey);
-
+	
 	return TRUE;
 }
 
