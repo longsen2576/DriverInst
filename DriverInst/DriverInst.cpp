@@ -34,22 +34,22 @@ BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath, const
 
 	//创建驱动所对应的服务    
 	hService = CreateServiceA(hServiceMgr,
-		lpszDriverName, // 驱动程序的在注册表中的名字    
-		lpszDriverName, // 注册表驱动程序的DisplayName 值    
-		SERVICE_ALL_ACCESS, // 加载驱动程序的访问权限    
-		SERVICE_KERNEL_DRIVER, // 表示加载的服务是文件系统驱动程序    
-		SERVICE_AUTO_START,//SERVICE_DEMAND_START,注册表驱动程序的Start 值  
-		SERVICE_ERROR_IGNORE, // 注册表驱动程序的ErrorControl 值    
-		lpszDriverPath, // 注册表驱动程序的ImagePath  
-		DriverClassName,// 注册表驱动程序的Group 值    
+		lpszDriverName,   
+		lpszDriverName, 
+		SERVICE_ALL_ACCESS,    
+		SERVICE_KERNEL_DRIVER,    
+		SERVICE_AUTO_START, 
+		SERVICE_ERROR_IGNORE, 
+		lpszDriverPath,   
+		DriverClassName,   
 		NULL,
-		NULL, // 驱动依赖的服务，注册表驱动程序的DependOnService值    
+		NULL,   
 		NULL,
 		NULL);
 
 	if (hService == NULL)
 	{
-		printf("CreateService failed:%d(%s)", GetLastError(), ConvertErrorCodeToString(GetLastError()));
+		printf("CreateService failed:%d", GetLastError());
 		if (GetLastError() == ERROR_SERVICE_EXISTS)
 		{
 			CloseServiceHandle(hService);

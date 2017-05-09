@@ -4,4 +4,6 @@
 
 LPSTR ConvertErrorCodeToString(DWORD ErrorCode);
 
+int PrintUsage();
+
 
