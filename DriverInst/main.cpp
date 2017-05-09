@@ -1,20 +1,25 @@
 
-#include <stdio.h>
+#include <iostream>
+#include <string>
 
 #include "DriverInst.h"
 #include "CommonDef.h"
+#include "Util.h"
+
+using namespace std;
 
 int main(int argc, char * argv[])
 {
-	BOOL bRet = InstallDriver(ServiceName, "D:\\VirtDisk.sys", "370030");
+	PrintUsage();
+	BOOL bRet = InstallDriver(ServiceName, "D:\\VirtualDisk.sys", "370030");
 	if (bRet)
 	{
-		StartDriver(ServiceName);
-		printf("driver install success!");
+		//StartDriver(ServiceName);
+		cout << "driver install success!" << endl;
 	}
 	else
 	{
-		printf("driver install failed!");
+		cout << "driver install failed!" << endl;
 	}
 	return 0;
 }
