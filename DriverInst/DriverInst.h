@@ -11,7 +11,7 @@
 *         const char* lpszAltitude，  文件驱动的高度
 * 返回值：BOOL ，TRUE为安装成功
 **************************************************************************/
-BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath, const char* lpszAltitude);
+BOOL InstallDriver(const char* lpszDriverName, const char* lpszDriverPath);
 
 /**************************************************************************
 * 函数名：StartDriver

@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char * argv[])
 {
 	PrintUsage();
-	BOOL bRet = InstallDriver(ServiceName, "D:\\VirtualDisk.sys", "370030");
+	BOOL bRet = InstallDriver(ServiceName, "D:\\VirtualDisk.sys");
 	if (bRet)
 	{
 		//StartDriver(ServiceName);
